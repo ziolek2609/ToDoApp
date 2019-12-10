@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ToDoApp</title>
+</head>
+
+<body>
+    <h1>ToDoApp!</h1>
+    <form action="/newtask" method="POST">
+        <input type="text" placeholder="Insert new task" name="name">
+        <button type="submit">Submit</button>
+    </form>
+    <span>
+        {{er}}
+    </span>
+    <div>
+        <ul>
+            {{#tasks}}
+                <li style="list-style-type: none">
+                    <form action="/task/{{_id}}/delete" method="DELETE">
+                        <input type="checkbox">
+                        {{name}} <button type="submit">X</button> 
+                    </form>
+                </li>
+            {{/tasks}}
+        </ul>
+    </div>
+    <form action="/" method="GET"><button type="submit">LOG OUT</button></form>
+</body>
+
+</html>
