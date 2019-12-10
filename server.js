@@ -69,17 +69,20 @@ app.get('/todo', (req, res) => {
 
 
 //SPRAWDZENIE CZY JEST KONTO I OTRZYMANIE LISTY
-app.post('/todo', async(req, res) => {
+app.post('/todo', async function(req, res) {
     let login = req.body.login;
     let password = req.body.password;
-    let user = await User.findOne({ login: login, password: password });
+    var user = await User.findOne({ login: login, password: password });
     if (user === null) {
         logEr = 'Incorrect login or password';
         res.redirect('/');
     }
     if (user !== null) {
         er = '';
-        Task.find({}).then((results) => res.render('index.mustache', { tasks: results, er: er }));
+        User.find({ login: login, password: password }).then((result) => {
+            res.render('index.mustache', { tasks: result[0].tasks, er: er });
+            console.log(result[0].tasks, user);
+        });
     }
 });
 
@@ -91,12 +94,10 @@ app.post('/newtask', (req, res) => {
         logEr = '';
         res.redirect('/todo')
     } else {
-        let newTask = new Task({ name: req.body.name });
-        newTask.save()
-            .then(result => {
-                er = '';
-                res.redirect('/todo')
-            });
+        let newTask = req.body.name;
+        user.tasks.push(newTask);
+        er = '';
+        res.render('index.mustache', { task: user.tasks, er: er });
     }
 })
 
