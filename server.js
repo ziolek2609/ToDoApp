@@ -31,6 +31,13 @@ let logEr = '';
 let regEr = '';
 
 
+
+// // INVALID PAGE
+// app.get('/*', (req, res) => {
+//     res.send("INVALID PAGE")
+// })
+
+
 // LOGIN 
 app.get('/', (req, res) => {
     res.render('login.mustache', { logEr: logEr })
@@ -60,13 +67,6 @@ app.post('/register', (req, res) => {
 })
 
 
-// LISTA TODO
-app.get('/todo', (req, res) => {
-    logEr = '';
-    Task.find({}).then((results) => res.render('index.mustache', { tasks: results, er: er }))
-})
-
-
 
 //SPRAWDZENIE CZY JEST KONTO I OTRZYMANIE LISTY
 app.post('/todo', async function(req, res) {
@@ -80,32 +80,37 @@ app.post('/todo', async function(req, res) {
     if (user !== null) {
         er = '';
         User.find({ login: login, password: password }).then((result) => {
-            res.render('index.mustache', { tasks: result[0].tasks, er: er });
-            console.log(result[0].tasks, user);
+            console.log(result[0].tasks)
+            res.render('index.mustache', { login: login, tasks: result[0].tasks, er: er });
         });
     }
 });
 
 //NOWY TASK
-app.post('/newtask', (req, res) => {
+app.post('/newtask', async(req, res) => {
     const { error } = validateTask(req.body.name);
     if (error) {
         er = `Error: ${error.details[0].message}`
         logEr = '';
-        res.redirect('/todo')
+        User.find({ login: req.body.login }).then((result) => {
+            console.log(result)
+            res.render('index.mustache', { login: result[0].login, tasks: result[0].tasks, er: er })
+        })
     } else {
-        let newTask = req.body.name;
-        user.tasks.push(newTask);
-        er = '';
-        res.render('index.mustache', { task: user.tasks, er: er });
+        User.findOneAndUpdate({ login: req.body.login }, { $push: { tasks: req.body.name } }, { new: true, useFindAndModify: false }).then((result) => {
+            console.log(result);
+            res.render('index.mustache', { login: result.login, tasks: result.tasks, er: er });
+        })
+
     }
 })
 
 //USUNIĘCIE TASKA
-app.get('/task/:id/delete', (req, res) => {
-    Task.findByIdAndRemove(req.params.id).then(() => {
+app.post('/deletetask', (req, res) => {
+    User.findOneAndUpdate({ login: req.body.login }, { $pull: { tasks: req.body.name } }, { new: true, useFindAndModify: false }).then((result) => {
+        console.log(result);
         er = '';
-        res.redirect('/todo')
+        res.render('index.mustache', { login: result.login, tasks: result.tasks, er: er });
     })
 })
 
