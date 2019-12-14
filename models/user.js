@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 30
     },
+    tasks: {
+        type: Array,
+        "deafult": []
+    }
 })
 
 

@@ -10,7 +10,9 @@
 <body>
     <h1>ToDoApp!</h1>
     <form action="/newtask" method="POST">
+        <h3>Hi <span name="login">{{login}}</span>! This is your ToDoList!</h3>
         <input type="text" placeholder="Insert new task" name="name">
+        <input type="text" value="{{login}}" name="login" style="display: none">
         <button type="submit">Submit</button>
     </form>
     <span>
@@ -20,9 +22,11 @@
         <ul>
             {{#tasks}}
                 <li style="list-style-type: none">
-                    <form action="/task/{{_id}}/delete" method="DELETE">
+                    <form action="/deletetask" method="POST">
                         <input type="checkbox">
-                        {{name}} <button type="submit">X</button> 
+                        {{.}} <button type="submit">X</button>
+                        <input type="text" value="{{login}}" name="login" style="display: none"> 
+                        <input type="text" value="{{.}}" name="name" style="display: none">
                     </form>
                 </li>
             {{/tasks}}
