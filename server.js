@@ -3,7 +3,6 @@ const express = require('express');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Task = require('./models/task');
 const User = require('./models/user');
 
 
