@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost:27017/todoapp', {
     console.log("Datebase connected")
 }).catch(() => {
     console.log("Connecting to database failed...")
-})
+});
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,13 +34,13 @@ let regEr = '';
 app.get('/', (req, res) => {
     regEr = '';
     res.render('login.mustache', { logEr: logEr })
-})
+});
 
 // REGISTER
 app.get('/register', (req, res) => {
     logEr = '';
     res.render('register.mustache', { regEr: regEr })
-})
+});
 
 app.post('/register', async(req, res) => {
 
@@ -61,7 +61,7 @@ app.post('/register', async(req, res) => {
                 res.redirect('/')
             });
     }
-})
+});
 
 
 
@@ -80,9 +80,9 @@ app.post('/todo', async(req, res) => {
 //NOWY TASK
 app.post('/newtask', async(req, res) => {
     const { error } = validateTask(req.body.name);
-    let user = await User.findOne({ login: req.body.login })
+    let user = await User.findOne({ login: req.body.login });
     if (error) {
-        er = "Task cannot be empty"
+        er = "Task cannot be empty";
         logEr = '';
         res.render('index.mustache', { login: user.login, tasks: user.tasks, er: er });
     } else {
@@ -93,7 +93,7 @@ app.post('/newtask', async(req, res) => {
         })
 
     }
-})
+});
 
 //USUNIĘCIE TASKA
 app.post('/deletetask', (req, res) => {
@@ -102,7 +102,7 @@ app.post('/deletetask', (req, res) => {
         er = '';
         res.render('index.mustache', { login: result.login, tasks: result.tasks, er: er });
     })
-})
+});
 
 
 //WALIDACJA TASKA I UŻYTKOWANIKA
@@ -119,6 +119,7 @@ function validateUser(login, password) {
 
     return Joi.validate(login, loginSchema) && Joi.validate(password, passwordSchema);
 }
+
 
 
 

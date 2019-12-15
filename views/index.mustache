@@ -2,37 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ToDoApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-    <h1>ToDoApp!</h1>
-    <form action="/newtask" method="POST">
-        <h3>Hi <span name="login">{{login}}</span>! This is your ToDoList!</h3>
-        <input type="text" placeholder="Insert new task" name="name">
-        <input type="text" value="{{login}}" name="login" style="display: none">
-        <button type="submit">Submit</button>
-    </form>
+<div class="container">
+    <div class="row text-center">
+        <form class="col-sm-2 text-left" style="margin: 20px" action="/" method="GET">
+            <button class="btn btn-primary" type="submit">LOG OUT</button>
+        </form>
+    </div>
+
+    <div class="row">
+        <h1 class="col-sm-6 text-center">ToDoApp!</h1>
+        <form class="col col-sm-7" action="/newtask" method="POST">
+            <h3 class="col">Hi <span name="login">{{login}}</span>! This is your ToDoList!</h3>
+            <div style="margin: 20px">
+                <input type="text" placeholder="Insert new task" name="name">
+                <input type="text" value="{{login}}" name="login" style="display: none">
+                <button class="col btn btn-primary" type="submit" style="margin: 20px">Submit</button>
+            </div>
+        </form>
+    </div>
     <span>
         {{er}}
     </span>
-    <div>
-        <ul>
+    <div class="col-sm-6">
+        <ul class="list-group" style="margin: 20px">
             {{#tasks}}
-                <li style="list-style-type: none">
+                <li class="list-group-item">
                     <form action="/deletetask" method="POST">
-                        <input type="checkbox">
-                        {{.}} <button type="submit">X</button>
-                        <input type="text" value="{{login}}" name="login" style="display: none"> 
+                        <div class="text-left">
+                            <input type="checkbox">
+                            {{.}}
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-primary" type="submit">X</button>
+                        </div>
+
+                        <input type="text" value="{{login}}" name="login" style="display: none">
                         <input type="text" value="{{.}}" name="name" style="display: none">
                     </form>
                 </li>
             {{/tasks}}
         </ul>
     </div>
-    <form action="/" method="GET"><button type="submit">LOG OUT</button></form>
+</div>
 </body>
 
 </html>
