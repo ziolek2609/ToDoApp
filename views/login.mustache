@@ -11,6 +11,10 @@
 </head>
 <body>
 <div class="container" style="background-color: azure; width: 800px">
+    <form class="col-sm-10 text-right" style="margin: 20px" action="/" method="GET">
+        <span>If you have account</span>
+        <a class="btn btn-info" href="/register">Register</a>
+    </form>
     <h1 class="text-center" style="margin: 20px"> Enter login and password.</h1>
     <form class="col-sm-12 text-center bg-muted" action="/todo" method="POST">
         <div class="form-group row text-center">
@@ -22,11 +26,11 @@
                 <label class="col-sm-4 col-form-label" for="login">Password:</label>
                 <input class="col-sm-4 form-control-plaintext" type="password" placeholder="password" name="password">
             </div>
-            <span class="col-sm-12 form-group row">
-                {{logEr}}
-            </span>
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <a class="btn btn-primary" href="/register">Register</a>
+            <div class="form__error" id="login-error-message">
+                <span class="text-danger">{{logEr}}</span>
+
+            </div>
+            <button class="btn btn-primary" type="submit" style="margin: 5px">Submit</button>
         </div>
     </form>
 

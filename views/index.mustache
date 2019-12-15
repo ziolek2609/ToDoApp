@@ -12,26 +12,27 @@
 <body>
 <div class="container" style="background-color: azure; width: 800px">
     <div class="row text-center">
-        <form class="col-sm-10 text-right" style="margin: 20px" action="/" method="GET">
-            <button class="btn btn-primary" type="submit">LOG OUT</button>
+        <form class="col-sm-10 text-right" style="margin: 15px" action="/" method="GET">
+            <button class="btn btn-dark" type="submit">LOG OUT</button>
         </form>
     </div>
 
     <div class="row" style="text-align: center">
-        <h1 class="col-sm-12 text-center">ToDoApp!</h1>
+        <h1 class="col-sm-12 text-left">ToDoApp!</h1>
         <form class="col col-sm-12" action="/newtask" method="POST">
             <h3 class="col">Hi <span name="login">{{login}}</span>! This is your ToDoList!</h3>
             <div style="margin: 20px">
                 <input type="text" placeholder="Insert new task" name="name">
                 <input type="text" value="{{login}}" name="login" style="display: none">
-                <button class="col btn btn-primary" type="submit" style="margin: 20px">Submit</button>
+                <button class="col btn btn-primary" type="submit" style="margin: 10px">Submit</button>
             </div>
         </form>
+        <div class="form__error" id="login-error-message">
+            <span class="text-danger">{{er}}</span>
+        </div>
     </div>
-    <span>
-        {{er}}
-    </span>
-    <div class="col-sm-6">
+
+    <div class="col-sm-12">
         <ul class="list-group" style="margin: 20px">
             {{#tasks}}
                 <li class="list-group-item bg-light">
