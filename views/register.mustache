@@ -5,29 +5,28 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ToDoApp</title>
-    <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container" style="background-color: azure; width: 800px">
     <div style="margin: 20px">
-        <h1>Register</h1>
+        <h1 class="text-center">Register</h1>
     </div>
-    <form class="col-sm-4 text-center" action="/register" method="POST">
+    <form class="col-sm-12 text-center" action="/register" method="POST">
         <div class="form-group row text-center">
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="login">Login</label>
-                <input class=form-control-plaintext" placeholder="login" type="text" name="login">
+                <label class="col-sm-4 col-form-label" for="login">Login:</label>
+                <input class="col-sm-4 form-control-plaintext" placeholder="login" type="text" name="login">
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="login">Password</label>
-                <input class=form-control-plaintext" placeholder="password" type="password" name="password">
+                <label class="col-sm-4 col-form-label" for="login">Password:</label>
+                <input class="col-sm-4 form-control-plaintext" placeholder="password" type="password" name="password">
             </div>
 
-            <span class="form-group-row">
+            <span class="col-sm-12 form-group-row">
                 {{regEr}}
             </span>
 
